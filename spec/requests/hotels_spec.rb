@@ -14,7 +14,7 @@ describe API::V1::HotelsController do
 
       expect(response).to have_http_status(200)
       data = JSON.parse(response.body)
-      expect(data).to eq []
+      expect(data.count).to eq 3
     end
   end
 end
