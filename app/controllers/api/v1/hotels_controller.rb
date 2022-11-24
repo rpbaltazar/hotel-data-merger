@@ -4,7 +4,7 @@ module API
   module V1
     class HotelsController < ApplicationController
       def index
-        render json: { message: 'ok' }
+        render json: []
       end
     end
   end
