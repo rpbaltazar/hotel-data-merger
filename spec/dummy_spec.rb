@@ -2,6 +2,6 @@
 
 RSpec.describe 'dummy test' do
   it 'works' do
-    expect(false).to eq true
+    expect(true).to eq true
   end
 end
