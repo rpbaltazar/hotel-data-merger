@@ -60,19 +60,17 @@ describe ServiceProviders::Paperflies::HotelDataMapper do
         identifier: 'iJhz',
         destination_id: 5432,
         name: 'Beach Villas Singapore',
-        latitude: 1.264751,
-        longitude: 103.824006,
-        address: ' 8 Sentosa Gateway, Beach Villas ',
-        city: 'Singapore',
+        address: '8 Sentosa Gateway, Beach Villas, 098269',
+        country: 'Singapore',
         description: 'Surrounded by tropical gardens, these upscale villas in elegant Colonial-style buildings',
         amenities_keywords: {
-          general: [
+          'general' => [
             'outdoor pool',
             'indoor pool',
             'business center',
             'childcare'
           ],
-          room: [
+          'room' => [
             'tv',
             'coffee machine',
             'kettle',
