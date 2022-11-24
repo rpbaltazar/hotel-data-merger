@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module DataMappers
+module ServiceProviders
   module Acme
-    class Hotel
+    class HotelDataMapper
       def self.from_array(hotels_data: [])
         # TODO: Handle scenario where hotels_data is not an array
         hotels_data.map do |hotel_data|
