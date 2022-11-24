@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ServiceProviders
-  module Acme
+  module Patagonia
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
       private
 
