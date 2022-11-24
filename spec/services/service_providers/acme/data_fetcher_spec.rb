@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ServiceProviders::Acme do
+describe ServiceProviders::Acme::DataFetcher do
   def stub_success_response(response_body)
     stub_request(:get, 'https://5f2be0b4ffc88500167b85a0.mockapi.io/acme')
       .with(headers: {
