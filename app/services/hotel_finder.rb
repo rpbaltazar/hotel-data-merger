@@ -17,6 +17,9 @@ class HotelFinder
     3.times.map do |i|
       hotel = Hotel.new
       hotel.id = i
+      hotel.identifier = "SERVICE_PROVIDER_IDENTIFIER#{i}"
+      hotel.name = "RANDOM NAME #{i}"
+      hotel.destination_id = i + rand(100)
       hotel
     end
   end
