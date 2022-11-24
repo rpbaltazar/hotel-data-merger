@@ -24,7 +24,7 @@ module ServiceProviders
 
       self.class::KEY_MAPPER.each do |model_attribute, value|
         raw_data_key = value[:raw_attribute]
-        hotel.send("#{model_attribute}=", @data[raw_data_key])
+        hotel.send("#{model_attribute}=", @data.dig(*raw_data_key))
       end
 
       hotel
