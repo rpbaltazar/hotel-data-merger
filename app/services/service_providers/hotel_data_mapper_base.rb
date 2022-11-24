@@ -24,10 +24,17 @@ module ServiceProviders
 
       self.class::KEY_MAPPER.each do |model_attribute, value|
         raw_data_key = value[:raw_attribute]
-        hotel.send("#{model_attribute}=", @data.dig(*raw_data_key))
+        clean_value = cleanup_data(@data.dig(*raw_data_key))
+        hotel.send("#{model_attribute}=", clean_value)
       end
 
       hotel
+    end
+
+    def cleanup_data(polluted_value)
+      return unless polluted_value.is_a? String
+
+      polluted_value.squish
     end
   end
 end
