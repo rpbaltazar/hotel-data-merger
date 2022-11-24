@@ -20,7 +20,7 @@ module ServiceProviders
         HotelDataMapper.from_array(hotels_data: response.body)
       rescue Faraday::Error => e
         Rails.logger.error(e)
-        # TODO: what to do in case of error? Probably return empty data array
+        []
       end
     end
   end
