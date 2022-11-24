@@ -31,6 +31,7 @@ module ServiceProviders
       hotel
     end
 
+    # TODO: Belongs to a utilities class
     def cleanup_data(polluted_value)
       case polluted_value
       when String
