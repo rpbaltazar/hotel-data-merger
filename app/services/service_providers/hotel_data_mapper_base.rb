@@ -21,17 +21,12 @@ module ServiceProviders
 
     def build_hotel_model
       hotel = ::Hotel.new
-      hotel.identifier = @data["Id"]
-      hotel.name = @data["Name"]
-      hotel.latitude = @data["Latitude"]
-      hotel.longitude = @data["Longitude"]
-      hotel.address = @data["Address"]
-      hotel.city = @data["City"]
-      hotel.country = @data["Country"]
-      hotel.postal_code = @data["PostalCode"]
-      hotel.description = @data["Description"]
-      hotel.destination_id = @data["DestinationId"]
-      hotel.amenities_keywords = @data["Facilities"]
+
+      self.class::KEY_MAPPER.each do |model_attribute, value|
+        raw_data_key = value[:raw_attribute]
+        hotel.send("#{model_attribute}=", @data[raw_data_key])
+      end
+
       hotel
     end
   end

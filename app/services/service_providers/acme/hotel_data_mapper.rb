@@ -3,23 +3,19 @@
 module ServiceProviders
   module Acme
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
-      private
-
-      def build_hotel_model
-        hotel = ::Hotel.new
-        hotel.identifier = @data["Id"]
-        hotel.name = @data["Name"]
-        hotel.latitude = @data["Latitude"]
-        hotel.longitude = @data["Longitude"]
-        hotel.address = @data["Address"]
-        hotel.city = @data["City"]
-        hotel.country = @data["Country"]
-        hotel.postal_code = @data["PostalCode"]
-        hotel.description = @data["Description"]
-        hotel.destination_id = @data["DestinationId"]
-        hotel.amenities_keywords = @data["Facilities"]
-        hotel
-      end
+      KEY_MAPPER = {
+        identifier: { raw_attribute: 'Id' },
+        name: { raw_attribute: 'Name' },
+        destination_id: { raw_attribute: 'DestinationId' },
+        latitude: { raw_attribute: 'Latitude' },
+        longitude: { raw_attribute: 'Longitude' },
+        address: { raw_attribute: 'Address' },
+        city: { raw_attribute: 'City' },
+        country: { raw_attribute: 'Country' },
+        postal_code: { raw_attribute: 'PostalCode' },
+        description: { raw_attribute: 'Description' },
+        amenities_keywords: { raw_attribute: 'Facilities' }
+      }.freeze
     end
   end
 end
