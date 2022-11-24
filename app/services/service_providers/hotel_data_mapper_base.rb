@@ -32,9 +32,16 @@ module ServiceProviders
     end
 
     def cleanup_data(polluted_value)
-      return unless polluted_value.is_a? String
-
-      polluted_value.squish
+      case polluted_value
+      when String
+        polluted_value.squish
+      when Array
+        polluted_value.map do |value|
+          cleanup_data(value)
+        end
+      else
+        polluted_value
+      end
     end
   end
 end
