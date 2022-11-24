@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ServiceProviders
-  module Paperfiles
+  module Paperflies
     class DataFetcher
       def self.call
         new.call
@@ -16,7 +16,7 @@ module ServiceProviders
       end
 
       def call
-        response = @service_provider_connection.get('/paperfiles')
+        response = @service_provider_connection.get('/paperflies')
         HotelDataMapper.from_array(hotels_data: response.body)
       rescue Faraday::Error => e
         Rails.logger.error(e)
