@@ -7,11 +7,12 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:14.6
         env:
           POSTGRES_USER: hotel_data_merger
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: hotel_data_merger_test
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
         - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -25,5 +26,7 @@ jobs:
           # runs 'bundle install' and caches installed gems automatically
           bundler-cache: true
       - name: Run tests
+        env:
+          POSTGRES_USER: hotel_data_merger
         run: |
           bundle exec rspec
