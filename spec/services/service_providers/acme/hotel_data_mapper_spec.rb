@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe DataMappers::Acme::Hotel do
+describe ServiceProviders::Acme::HotelDataMapper do
   let(:raw_data) do
     {
       "Id": "iJhz",
