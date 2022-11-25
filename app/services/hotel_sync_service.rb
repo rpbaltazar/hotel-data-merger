@@ -17,7 +17,6 @@ class HotelSyncService
   def regenerate_hotel_data
     existing_identifiers = HotelRawDatum.select(:identifier).distinct.pluck(:identifier)
     existing_identifiers.each do |identifier|
-      p "Buidling data for identifier #{identifier}"
       raw_data = HotelRawDatum.where(identifier: identifier)
       hotel_attributes = build_hotel_attributes_from_raw_data(raw_data)
       hotel = Hotel.find_or_initialize_by(identifier: identifier)
