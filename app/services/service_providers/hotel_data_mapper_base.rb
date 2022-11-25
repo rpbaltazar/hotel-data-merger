@@ -20,15 +20,15 @@ module ServiceProviders
     private
 
     def build_hotel_model
-      hotel = Hotel.new
+      hotel_raw_data = HotelRawDatum.new
 
       self.class::KEY_MAPPER.each do |model_attribute, mapped_properties|
         raw_data_key = mapped_properties[:service_provider_attribute_name]
         clean_value = cleanup_data(@data.dig(*raw_data_key))
-        hotel.send("#{model_attribute}=", clean_value)
+        hotel_raw_data.send("#{model_attribute}=", clean_value)
       end
 
-      hotel
+      hotel_raw_data
     end
 
     # TODO: Belongs to a utilities class
