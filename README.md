@@ -49,3 +49,13 @@ The standardize values step transforms the raw data sent by the different servic
 
 For images, for example, this means we will transform the keys from the raw data service response into what our API is supposed to render later.
 For countries, I rely on iso_country_code gem to look for the country name and assure that the raw data will store only country names and not country codes
+
+## Improvements to current solution
+
+1. Images fetching - Right now there's some data transformation going on in order to rebuild the image data structure as we plan to serve it. A possible solution will be create an images table that will have a image type as attribute and it'll contain the room type as value. This images table would have a foreign key pointing to the hotel id and from here we could easily maintain/ignore duplicates and build the final data structure through relational database associations
+
+2. Amenities - Similarly to the image fetching, it would be beneficial to move this to a separate table with room type as an attribute. This would make it easier for us to assign a room type to the amenity.
+
+3. Data deletion - Currently there is no way for us to remove data from our server. It would be good to implement a sync logic that is able to remove stale data. With the currently provided APIs I can't think of a very clean way to achieve this unless we do a diff on all the ids.
+
+4. Data sync - In a real world scenario, we would need to handle pagination for both parts
