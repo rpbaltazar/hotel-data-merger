@@ -42,8 +42,17 @@ module ServiceProviders
       attributes_to_standardize = [:country, :amenities, :images]
       return clean_value unless attributes_to_standardize.include? model_attribute
 
-      debugger
+      case model_attribute
+      when :country
+        clean_value # TODO
+      when :amenities
+        clean_value # TODO
+      when :images
+        standardize_images(clean_value)
+      end
+    end
 
+    def standardize_images(clean_value)
       clean_value
     end
 
