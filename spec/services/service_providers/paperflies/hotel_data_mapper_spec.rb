@@ -63,7 +63,7 @@ describe ServiceProviders::Paperflies::HotelDataMapper do
         address: '8 Sentosa Gateway, Beach Villas, 098269',
         country: 'Singapore',
         description: 'Surrounded by tropical gardens, these upscale villas in elegant Colonial-style buildings',
-        amenities_keywords: {
+        amenities: {
           'general' => [
             'outdoor pool',
             'indoor pool',
@@ -90,7 +90,7 @@ describe ServiceProviders::Paperflies::HotelDataMapper do
     it 'returns an array of hotels' do
       data = 2.times.map { raw_data }.as_json
       hotels = described_class.from_array(hotels_data: data)
-      expect(hotels[0].class).to eq ::Hotel
+      expect(hotels[0].class).to eq ::HotelRawDatum
       expect(hotels.map(&:identifier)).to match_array %w[iJhz iJhz]
     end
   end
