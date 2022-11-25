@@ -2,6 +2,7 @@
 
 module ServiceProviders
   class HotelDataMapperBase
+    # TODO: return created record ids and updated record ids
     def self.from_array(hotels_data: [])
       # TODO: Handle scenario where hotels_data is not an array
       hotels_data.map do |hotel_data|
@@ -19,8 +20,12 @@ module ServiceProviders
 
     private
 
+    def hotel_identifier
+      @data[self.class::SERVICE_PROVIDER_IDENTIFIER_KEY]
+    end
+
     def build_hotel_model
-      hotel_raw_data = HotelRawDatum.new
+      hotel_raw_data = HotelRawDatum.find_or_initialize_by(identifier: hotel_identifier, source: self.class::SOURCE_NAME)
 
       self.class::KEY_MAPPER.each do |model_attribute, mapped_properties|
         raw_data_key = mapped_properties[:service_provider_attribute_name]
@@ -28,7 +33,7 @@ module ServiceProviders
         hotel_raw_data.send("#{model_attribute}=", clean_value)
       end
 
-      hotel_raw_data
+      hotel_raw_data.save!
     end
 
     # TODO: Belongs to a utilities class

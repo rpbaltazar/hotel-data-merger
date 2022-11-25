@@ -3,8 +3,10 @@
 module ServiceProviders
   module Patagonia
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
+      SOURCE_NAME = 'patagonia'
+      SERVICE_PROVIDER_IDENTIFIER_KEY = 'id'
+
       KEY_MAPPER = {
-        identifier: { service_provider_attribute_name: 'id' },
         name: { service_provider_attribute_name: 'name' },
         destination_id: { service_provider_attribute_name: 'destination' },
         latitude: { service_provider_attribute_name: 'lat' },

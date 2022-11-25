@@ -3,8 +3,10 @@
 module ServiceProviders
   module Acme
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
+      SOURCE_NAME = 'acme'
+      SERVICE_PROVIDER_IDENTIFIER_KEY = 'Id'
+
       KEY_MAPPER = {
-        identifier: { service_provider_attribute_name: 'Id' },
         name: { service_provider_attribute_name: 'Name' },
         destination_id: { service_provider_attribute_name: 'DestinationId' },
         latitude: { service_provider_attribute_name: 'Latitude' },
