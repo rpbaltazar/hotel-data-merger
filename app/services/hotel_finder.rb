@@ -19,6 +19,5 @@ class HotelFinder
 
   def call
     Hotel.all
-    # ServiceProviders::DataFetcherRegistry.fetch_all
   end
 end
