@@ -2,34 +2,12 @@
 
 module ServiceProviders
   class DataFetcherRegistry
+    # NOTE: Adding a new data source, implies adding a new source to HotelRawDatum source enum
     DATA_FETCHERS = {
       acme: ServiceProviders::Acme::DataFetcher,
       paperflies: ServiceProviders::Paperflies::DataFetcher,
       patagonia: ServiceProviders::Patagonia::DataFetcher
     }.freeze
-
-    def self.fetch_all
-      final_hotel_list = {}
-      # TODO: We could probably improve this performance using EM-Synchrony and spawn
-      # the 3 requests in parallel.
-      hotels_per_provider = DATA_FETCHERS.values.each.map(&:call)
-
-      # TODO: Think of ways to improve this logic
-      hotels_per_provider.each do |provider_hotels|
-        provider_hotels.each do |provider_hotel|
-          cached_hotel = final_hotel_list[provider_hotel.identifier]
-          final_hotel_list[provider_hotel.identifier] = if cached_hotel.nil?
-                                                          provider_hotel
-                                                        else
-                                                          merge_hotel_info(cached_hotel, provider_hotel)
-                                                        end
-        end
-      end
-
-      final_hotel_list.each_value do |hotel|
-        hotel.save!
-      end
-    end
 
     # TODO: This should be a service of its own
     def self.merge_hotel_info(cached_hotel, new_info)

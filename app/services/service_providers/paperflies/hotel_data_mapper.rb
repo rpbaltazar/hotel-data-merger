@@ -3,8 +3,11 @@
 module ServiceProviders
   module Paperflies
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
+      SOURCE_NAME = 'paperflies'
+
+      SERVICE_PROVIDER_IDENTIFIER_KEY = 'hotel_id'
+
       KEY_MAPPER = {
-        identifier: { service_provider_attribute_name: 'hotel_id' },
         name: { service_provider_attribute_name: 'hotel_name' },
         destination_id: { service_provider_attribute_name: 'destination_id' },
         address: { service_provider_attribute_name: %w[location address] },
