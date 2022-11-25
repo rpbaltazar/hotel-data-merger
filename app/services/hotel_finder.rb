@@ -18,6 +18,9 @@ class HotelFinder
   end
 
   def call
-    Hotel.all
+    hotels = Hotel.all
+    hotels = hotels.where(destination_id: @destination_id) if @destination_id.present?
+    hotels = hotels.where(identifier: @hotel_ids) if @hotel_ids.present?
+    hotels
   end
 end
