@@ -11,7 +11,7 @@ module ServiceProviders
         longitude: { service_provider_attribute_name: 'lng' },
         address: { service_provider_attribute_name: 'address' },
         description: { service_provider_attribute_name: 'info' },
-        # amenities_keywords: { service_provider_attribute_name: 'amenities' }
+        amenities: { service_provider_attribute_name: 'amenities' }
       }.freeze
     end
   end
