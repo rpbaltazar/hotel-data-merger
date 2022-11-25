@@ -16,6 +16,23 @@ module ServiceProviders
         amenities: { service_provider_attribute_name: 'amenities' },
         images: { service_provider_attribute_name: 'images' }
       }.freeze
+
+      private
+
+      def standardize_images(images_object)
+        ['rooms', 'site', 'amenities'].each do |key|
+          images_per_room_type = images_object[key]
+          next if images_per_room_type.nil?
+
+          images_per_room_type.each do |link_caption|
+            link_caption['link'] = link_caption['url']
+            link_caption.delete('url')
+          end
+          images_object[key] = images_per_room_type
+        end
+
+        images_object
+      end
     end
   end
 end

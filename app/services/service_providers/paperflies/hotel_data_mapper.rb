@@ -17,6 +17,23 @@ module ServiceProviders
         booking_conditions: { service_provider_attribute_name: 'booking_conditions' },
         images: { service_provider_attribute_name: 'images' }
       }.freeze
+
+      private
+
+      def standardize_images(images_object)
+        ['rooms', 'site', 'amenities'].each do |key|
+          images_per_room_type = images_object[key]
+          next if images_per_room_type.nil?
+
+          images_per_room_type.each do |link_caption|
+            link_caption['description'] = link_caption['caption']
+            link_caption.delete('caption')
+          end
+          images_object[key] = images_per_room_type
+        end
+
+        images_object
+      end
     end
   end
 end
