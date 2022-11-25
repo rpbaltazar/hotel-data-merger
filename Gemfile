@@ -24,7 +24,7 @@ gem 'blueprinter'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'faraday'
-gem 'iso_country_codes'
+gem 'iso_country_codes', require: false
 
 gem 'oj'
 

@@ -37,6 +37,7 @@ describe ServiceProviders::Acme::HotelDataMapper do
         address: '8 Sentosa Gateway, Beach Villas',
         city: 'Singapore',
         postal_code: '098269',
+        country: 'Singapore',
         description: 'This 5 star hotel is located on the coastline of Singapore.',
         amenities: [
           'Pool',
