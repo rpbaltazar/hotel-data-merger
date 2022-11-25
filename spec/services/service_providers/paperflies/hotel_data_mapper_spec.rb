@@ -81,7 +81,25 @@ describe ServiceProviders::Paperflies::HotelDataMapper do
         booking_conditions: [
           'Pets are not allowed.',
           'WiFi is available in all areas and is free of charge.'
-        ]
+        ],
+        images: {
+          'rooms' => [
+            {
+              'link' => 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg',
+              'description' => 'Double room'
+            },
+            {
+              'link' => 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/3.jpg',
+              'description' => 'Double room'
+            }
+          ],
+          'site' => [
+            {
+              'link' => 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/1.jpg',
+              'description' => 'Front'
+            }
+          ]
+        }
       )
     end
   end
