@@ -9,10 +9,8 @@ describe API::V1::HotelsController do
     let(:request_path) { "#{controller_path}/" }
     let(:request) { get request_path, as: :json }
 
-    let(:all_hotels) { FactoryBot.build_list :hotel, 3 }
-
     before do
-      allow(ServiceProviders::DataFetcherRegistry).to receive(:fetch_all).and_return(all_hotels)
+      FactoryBot.create_list :hotel, 3
     end
 
     it 'returns an array of hotels' do

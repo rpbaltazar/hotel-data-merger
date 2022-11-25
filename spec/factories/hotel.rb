@@ -2,7 +2,10 @@
 
 FactoryBot.define do
   factory :hotel do
-    identifier { 'asDD' }
+    sequence :identifier do |n|
+      "asDD_#{n}"
+    end
+    destination_id { 111 }
     name { 'Fantastic hotel' }
   end
 end
