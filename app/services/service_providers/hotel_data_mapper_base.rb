@@ -30,11 +30,21 @@ module ServiceProviders
       self.class::KEY_MAPPER.each do |model_attribute, mapped_properties|
         raw_data_key = mapped_properties[:service_provider_attribute_name]
         clean_value = cleanup_data(@data.dig(*raw_data_key))
-        hotel_raw_data.send("#{model_attribute}=", clean_value)
+        standardized_value = standardize_value(clean_value, model_attribute)
+        hotel_raw_data.send("#{model_attribute}=", standardized_value)
       end
 
       hotel_raw_data.save!
       hotel_raw_data
+    end
+
+    def standardize_value(clean_value, model_attribute)
+      attributes_to_standardize = [:country, :amenities, :images]
+      return clean_value unless attributes_to_standardize.include? model_attribute
+
+      debugger
+
+      clean_value
     end
 
     # TODO: Belongs to a utilities class
