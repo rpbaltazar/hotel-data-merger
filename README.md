@@ -48,3 +48,4 @@ The clean values removes all extra empty spaces for strings
 The standardize values step transforms the raw data sent by the different service providers in a way that we can safely merge the data later
 
 For images, for example, this means we will transform the keys from the raw data service response into what our API is supposed to render later.
+For countries, I rely on iso_country_code gem to look for the country name and assure that the raw data will store only country names and not country codes
