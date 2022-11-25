@@ -14,7 +14,8 @@ module ServiceProviders
         country: { service_provider_attribute_name: %w[location country] },
         description: { service_provider_attribute_name: 'details' },
         amenities: { service_provider_attribute_name: 'amenities' },
-        booking_conditions: { service_provider_attribute_name: 'booking_conditions' }
+        booking_conditions: { service_provider_attribute_name: 'booking_conditions' },
+        images: { service_provider_attribute_name: 'images' }
       }.freeze
     end
   end
