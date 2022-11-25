@@ -4,14 +4,14 @@ module ServiceProviders
   module Patagonia
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
       KEY_MAPPER = {
-        identifier: { raw_attribute: 'id' },
-        name: { raw_attribute: 'name' },
-        destination_id: { raw_attribute: 'destination' },
-        latitude: { raw_attribute: 'lat' },
-        longitude: { raw_attribute: 'lng' },
-        address: { raw_attribute: 'address' },
-        description: { raw_attribute: 'info' },
-        amenities_keywords: { raw_attribute: 'amenities' }
+        identifier: { service_provider_attribute_name: 'id' },
+        name: { service_provider_attribute_name: 'name' },
+        destination_id: { service_provider_attribute_name: 'destination' },
+        latitude: { service_provider_attribute_name: 'lat' },
+        longitude: { service_provider_attribute_name: 'lng' },
+        address: { service_provider_attribute_name: 'address' },
+        description: { service_provider_attribute_name: 'info' },
+        amenities_keywords: { service_provider_attribute_name: 'amenities' }
       }.freeze
     end
   end

@@ -4,17 +4,17 @@ module ServiceProviders
   module Acme
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
       KEY_MAPPER = {
-        identifier: { raw_attribute: 'Id' },
-        name: { raw_attribute: 'Name' },
-        destination_id: { raw_attribute: 'DestinationId' },
-        latitude: { raw_attribute: 'Latitude' },
-        longitude: { raw_attribute: 'Longitude' },
-        address: { raw_attribute: 'Address' },
-        city: { raw_attribute: 'City' },
-        country: { raw_attribute: 'Country' },
-        postal_code: { raw_attribute: 'PostalCode' },
-        description: { raw_attribute: 'Description' },
-        amenities_keywords: { raw_attribute: 'Facilities' }
+        identifier: { service_provider_attribute_name: 'Id' },
+        name: { service_provider_attribute_name: 'Name' },
+        destination_id: { service_provider_attribute_name: 'DestinationId' },
+        latitude: { service_provider_attribute_name: 'Latitude' },
+        longitude: { service_provider_attribute_name: 'Longitude' },
+        address: { service_provider_attribute_name: 'Address' },
+        city: { service_provider_attribute_name: 'City' },
+        country: { service_provider_attribute_name: 'Country' },
+        postal_code: { service_provider_attribute_name: 'PostalCode' },
+        description: { service_provider_attribute_name: 'Description' },
+        amenities_keywords: { service_provider_attribute_name: 'Facilities' }
       }.freeze
     end
   end
