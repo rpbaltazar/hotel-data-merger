@@ -48,10 +48,16 @@ module ServiceProviders
       when :country
         standardize_country(clean_value)
       when :amenities
-        clean_value # TODO
+        standardize_amenities(clean_value)
       when :images
         standardize_images(clean_value)
       end
+    end
+
+    def standardize_amenities(clean_value)
+      return clean_value if clean_value.is_a? Hash
+
+      { 'general' => clean_value }
     end
 
     def standardize_images(clean_value)
