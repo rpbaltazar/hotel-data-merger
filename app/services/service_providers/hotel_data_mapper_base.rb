@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'iso_country_codes'
+
 module ServiceProviders
   class HotelDataMapperBase
     # TODO: return created record ids and updated record ids
@@ -44,7 +46,7 @@ module ServiceProviders
 
       case model_attribute
       when :country
-        clean_value # TODO
+        standardize_country(clean_value)
       when :amenities
         clean_value # TODO
       when :images
@@ -54,6 +56,29 @@ module ServiceProviders
 
     def standardize_images(clean_value)
       clean_value
+    end
+
+    def standardize_country(clean_value)
+      return nil unless clean_value
+
+      iso_country = find_by_country_code(clean_value)
+      iso_country ||= find_by_country_name(clean_value)
+
+      return nil unless iso_country
+
+      iso_country.name
+    end
+
+    def find_by_country_code(value)
+      IsoCountryCodes.find(value)
+    rescue IsoCountryCodes::UnknownCodeError => _e
+      nil
+    end
+
+    def find_by_country_name(value)
+      IsoCountryCodes.search_by_name(value).first
+    rescue IsoCountryCodes::UnknownCodeError => _e
+      nil
     end
 
     # TODO: Belongs to a utilities class
