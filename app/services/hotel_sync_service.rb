@@ -54,7 +54,16 @@ class HotelSyncService
 
   # Merging logic for images: TODO
   def fetch_images(raw_images)
-    raw_images.first
+    final_images = { 'rooms' => [], 'amenities' => [], 'site' => [] }
+    raw_images.each do |raw_image_set|
+      ['rooms', 'amenities', 'site'].each do |room_type|
+        images_to_append = raw_image_set[room_type] || []
+        final_images[room_type] += images_to_append
+      end
+    end
+
+    # TODO: clean duplicates
+    final_images
   end
 
   # Merging logic for booking_conditions: all merged and uniqued
