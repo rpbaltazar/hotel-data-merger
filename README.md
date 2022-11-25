@@ -14,6 +14,11 @@ start the server
 
 Query the API in localhost:3000/api/v1/hotels with the filter params
 
+### Run in postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/185195-09936412-4845-4f2a-b3dd-e0027d26182f?action=collection%2Ffork&collection-url=entityId%3D185195-09936412-4845-4f2a-b3dd-e0027d26182f%26entityType%3Dcollection%26workspaceId%3D72d1659d-fd6c-42a9-995a-4f56fc7f93fd)
+
+
 ## General Notes
 
 1. Service provider's API is very limited which causes some problems in regards to an optimal sync process. There are no filtering options available in the Service Provider's API which means that we need to always fetch the whole data from them and filter the data on the response.
