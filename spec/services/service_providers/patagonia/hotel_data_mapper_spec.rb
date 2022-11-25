@@ -49,7 +49,21 @@ describe ServiceProviders::Patagonia::HotelDataMapper do
           'Aircon',
           'Tv',
           'Coffee machine'
-        ]
+        ],
+        images: {
+          'rooms' => [
+            {
+              'link' => 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/2.jpg',
+              'description' => 'Double room'
+            }
+          ],
+          'amenities' => [
+            {
+              'link' => 'https://d2ey9sqrvkqdfs.cloudfront.net/0qZF/0.jpg',
+              'description' => 'RWS'
+            }
+          ]
+        }
       )
     end
   end
