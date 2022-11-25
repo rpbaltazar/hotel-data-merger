@@ -6,6 +6,7 @@ module MergeUtils
   end
 
   def self.first_double(array_of_values)
-    array_of_values.find { |val| val.is_a? BigDecimal }
+    acceptable_values = [BigDecimal, Float]
+    array_of_values.find { |val| acceptable_values.include?(val.class) }
   end
 end
