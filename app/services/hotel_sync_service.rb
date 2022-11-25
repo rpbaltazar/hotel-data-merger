@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'merge_utils'
+
 class HotelSyncService
   def self.call
     new.call
@@ -15,6 +17,7 @@ class HotelSyncService
   def regenerate_hotel_data
     existing_identifiers = HotelRawDatum.select(:identifier).distinct.pluck(:identifier)
     existing_identifiers.each do |identifier|
+      p "Buidling data for identifier #{identifier}"
       raw_data = HotelRawDatum.where(identifier: identifier)
       hotel_attributes = build_hotel_attributes_from_raw_data(raw_data)
       hotel = Hotel.find_or_initialize_by(identifier: identifier)
@@ -29,52 +32,19 @@ class HotelSyncService
 
     {
       destination_id: destination_id,
-      name: fetch_name(raw_data.pluck(:name).compact),
-      latitude: fetch_latitude(raw_data.pluck(:latitude).compact),
-      longitude: fetch_longitude(raw_data.pluck(:longitude).compact),
-      address: fetch_address(raw_data.pluck(:address).compact),
-      city: fetch_city(raw_data.pluck(:city).compact),
-      country: fetch_country(raw_data.pluck(:country).compact),
-      description: fetch_description(raw_data.pluck(:description).compact),
-      amenities: fetch_amenities(raw_data.pluck(:amenities).compact),
-      images: fetch_images(raw_data.pluck(:images).compact),
-      booking_conditions: fetch_booking_conditions(raw_data.pluck(:booking_conditions).compact),
+      name: MergeUtils.longest_string(raw_data.map(&:name).compact),
+      latitude: MergeUtils.first_double(raw_data.map(&:latitude).compact),
+      longitude: MergeUtils.first_double(raw_data.map(&:longitude).compact),
+      address: MergeUtils.longest_string(raw_data.map(&:address).compact),
+      city: raw_data.map(&:city).compact.first, # Merging logic for city: first non nil wins
+      # NOTE: country should be stored standardized in raw data already, so choosing the first is safe
+      country: raw_data.map(&:country).compact.first,
+      description: MergeUtils.longest_string(raw_data.map(&:description).compact),
+      amenities: fetch_amenities(raw_data.map(&:amenities).compact),
+      images: fetch_images(raw_data.map(&:images).compact),
+      booking_conditions: fetch_booking_conditions(raw_data.map(&:booking_conditions).compact),
       last_generated_at: Time.now
     }
-  end
-
-  # Merging logic for name: Longest clean name wins
-  def fetch_name(raw_names)
-    raw_names.max_by(&:length)
-  end
-
-  # Merging logic for latitude and longitude: First double wins
-  def fetch_latitude(raw_latitudes)
-    raw_latitudes.find { |lat| lat.is_a? BigDecimal }
-  end
-
-  def fetch_longitude(raw_longitudes)
-    raw_longitudes.find { |lat| lat.is_a? BigDecimal }
-  end
-
-  # Merging logic for address: Longest clean address wins
-  def fetch_address(raw_addresses)
-    raw_addresses.max_by(&:length)
-  end
-
-  # Merging logic for city: first non nil wins
-  def fetch_city(raw_cities)
-    raw_cities.first
-  end
-
-  # Merging logic for country: first non nil wins. They should be stored standardized in raw data already
-  def fetch_country(raw_countries)
-    raw_countries.first
-  end
-
-  # Merging logic for name: Longest clean name wins
-  def fetch_description(raw_descriptions)
-    raw_descriptions.max_by(&:length)
   end
 
   # Merging logic for amenities: TODO
