@@ -20,10 +20,10 @@ module ServiceProviders
     private
 
     def build_hotel_model
-      hotel_data = OpenStruct.new
+      hotel = Hotel.new
 
-      self.class::KEY_MAPPER.each do |model_attribute, value|
-        raw_data_key = value[:service_provider_attribute_name]
+      self.class::KEY_MAPPER.each do |model_attribute, mapped_properties|
+        raw_data_key = mapped_properties[:service_provider_attribute_name]
         clean_value = cleanup_data(@data.dig(*raw_data_key))
         hotel.send("#{model_attribute}=", clean_value)
       end

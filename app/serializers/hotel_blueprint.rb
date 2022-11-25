@@ -14,5 +14,4 @@ class HotelBlueprint < Blueprinter::Base
       country: hotel.country
     }
   end
-
 end

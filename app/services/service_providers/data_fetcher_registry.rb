@@ -11,7 +11,7 @@ module ServiceProviders
     def self.fetch_all
       final_hotel_list = {}
       # TODO: We could probably improve this performance using EM-Synchrony and spawn
-      # the 3 requests in parallel
+      # the 3 requests in parallel.
       hotels_per_provider = DATA_FETCHERS.values.each.map(&:call)
 
       # TODO: Think of ways to improve this logic
@@ -26,7 +26,9 @@ module ServiceProviders
         end
       end
 
-      final_hotel_list.values
+      final_hotel_list.each_value do |hotel|
+        hotel.save!
+      end
     end
 
     # TODO: This should be a service of its own

@@ -12,9 +12,9 @@ module ServiceProviders
         address: { service_provider_attribute_name: 'Address' },
         city: { service_provider_attribute_name: 'City' },
         country: { service_provider_attribute_name: 'Country' },
-        postal_code: { service_provider_attribute_name: 'PostalCode' },
+        # postal_code: { service_provider_attribute_name: 'PostalCode' },
         description: { service_provider_attribute_name: 'Description' },
-        amenities_keywords: { service_provider_attribute_name: 'Facilities' }
+        # amenities_keywords: { service_provider_attribute_name: 'Facilities' }
       }.freeze
     end
   end
