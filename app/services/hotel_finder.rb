@@ -8,7 +8,6 @@ class HotelFinder
   # @param hotel_ids [Array<Integer>] list of hotel ids that we plan to match in the service provider
   # @return [Array<Hotel>] array of hotels that match the passed params.
   def self.call(destination_id: nil, hotel_ids: [])
-    # TODO: ensure that either is set once we support filtering
     new(destination_id, hotel_ids).call
   end
 
