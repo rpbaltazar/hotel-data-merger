@@ -18,6 +18,11 @@ describe ServiceProviders::Acme::DataFetcher do
       [{ 'Id' => 'SjyX' }, { 'Id' => 'iJhz' }]
     end
 
+    it 'creates raw data records for each returned value' do
+      stub_success_response(hotel_raw_data)
+      expect { described_class.call }.to change { HotelRawDatum.count }.by(2)
+    end
+
     it 'returns an array of hotel models based on the data' do
       stub_success_response(hotel_raw_data)
 

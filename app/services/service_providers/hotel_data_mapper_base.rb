@@ -34,6 +34,7 @@ module ServiceProviders
       end
 
       hotel_raw_data.save!
+      hotel_raw_data
     end
 
     # TODO: Belongs to a utilities class
