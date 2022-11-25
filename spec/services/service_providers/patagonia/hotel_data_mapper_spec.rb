@@ -44,7 +44,7 @@ describe ServiceProviders::Patagonia::HotelDataMapper do
         latitude: 1.264751,
         longitude: 103.824006,
         address: '8 Sentosa Gateway, Beach Villas, 098269',
-        description: ' Located at the western tip of Resorts World Sentosa  ',
+        description: 'Located at the western tip of Resorts World Sentosa',
         amenities_keywords: [
           'Aircon',
           'Tv',
