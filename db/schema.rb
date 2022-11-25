@@ -19,13 +19,15 @@ ActiveRecord::Schema.define(version: 2022_11_25_024501) do
     t.string "identifier", null: false
     t.integer "destination_id", null: false
     t.string "name"
-    t.text "description"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.string "address"
     t.string "city"
     t.string "country"
-    t.string "postal_code"
+    t.text "description"
+    t.jsonb "amenities"
+    t.jsonb "images"
+    t.string "booking_conditions", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["destination_id"], name: "index_hotels_on_destination_id"
