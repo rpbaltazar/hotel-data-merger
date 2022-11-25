@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_25_024501) do
+ActiveRecord::Schema.define(version: 2022_11_25_051624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hotel_raw_data", force: :cascade do |t|
+    t.string "source"
+    t.string "identifier"
+    t.integer "destination_id"
+    t.string "name"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "address"
+    t.string "postal_code"
+    t.string "country"
+    t.string "description"
+    t.jsonb "images"
+    t.jsonb "amenities"
+    t.string "booking_conditions", array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_hotel_raw_data_on_identifier"
+  end
 
   create_table "hotels", force: :cascade do |t|
     t.string "identifier", null: false
