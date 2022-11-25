@@ -1,5 +1,19 @@
 # README
 
+## Setup and initial run
+
+> rails db:setup
+
+in rails console, run the sync service
+> HotelSyncService.call
+
+In the real world this would be managed by an asynchronous process. There are several optimizations that we could do on this logic but more investigation on the API for the service providers should be done.
+
+start the server
+> rails s
+
+Query the API in localhost:3000/api/v1/hotels with the filter params
+
 ## General Notes
 
 1. Service provider's API is very limited which causes some problems in regards to an optimal sync process. There are no filtering options available in the Service Provider's API which means that we need to always fetch the whole data from them and filter the data on the response.
