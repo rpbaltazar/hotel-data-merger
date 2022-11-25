@@ -26,4 +26,11 @@
 
 ## Data merging logic
 
-TODO
+The data merging depends on two earlier steps:
+1. clean values
+2. standardize values
+
+The clean values removes all extra empty spaces for strings
+The standardize values step transforms the raw data sent by the different service providers in a way that we can safely merge the data later
+
+For images, for example, this means we will transform the keys from the raw data service response into what our API is supposed to render later.
