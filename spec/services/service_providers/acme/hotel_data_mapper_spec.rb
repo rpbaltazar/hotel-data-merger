@@ -38,7 +38,7 @@ describe ServiceProviders::Acme::HotelDataMapper do
         city: 'Singapore',
         postal_code: '098269',
         description: 'This 5 star hotel is located on the coastline of Singapore.',
-        amenities_keywords: [
+        amenities: [
           'Pool',
           'BusinessCenter',
           'WiFi',
@@ -53,7 +53,7 @@ describe ServiceProviders::Acme::HotelDataMapper do
     it 'returns an array of hotels' do
       data = 2.times.map { raw_data }.as_json
       hotels = described_class.from_array(hotels_data: data)
-      expect(hotels[0].class).to eq ::Hotel
+      expect(hotels[0].class).to eq ::HotelRawDatum
       expect(hotels.map(&:identifier)).to match_array %w[iJhz iJhz]
     end
   end
