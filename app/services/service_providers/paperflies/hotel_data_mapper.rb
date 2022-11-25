@@ -4,14 +4,14 @@ module ServiceProviders
   module Paperflies
     class HotelDataMapper < ServiceProviders::HotelDataMapperBase
       KEY_MAPPER = {
-        identifier: { raw_attribute: 'hotel_id' },
-        name: { raw_attribute: 'hotel_name' },
-        destination_id: { raw_attribute: 'destination_id' },
-        address: { raw_attribute: %w[location address] },
-        country: { raw_attribute: %w[location country] },
-        description: { raw_attribute: 'details' },
-        amenities_keywords: { raw_attribute: 'amenities' },
-        booking_conditions: { raw_attribute: 'booking_conditions' }
+        identifier: { service_provider_attribute_name: 'hotel_id' },
+        name: { service_provider_attribute_name: 'hotel_name' },
+        destination_id: { service_provider_attribute_name: 'destination_id' },
+        address: { service_provider_attribute_name: %w[location address] },
+        country: { service_provider_attribute_name: %w[location country] },
+        description: { service_provider_attribute_name: 'details' },
+        amenities_keywords: { service_provider_attribute_name: 'amenities' },
+        booking_conditions: { service_provider_attribute_name: 'booking_conditions' }
       }.freeze
     end
   end
