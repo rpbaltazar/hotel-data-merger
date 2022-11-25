@@ -3,6 +3,16 @@
 class HotelBlueprint < Blueprinter::Base
   identifier :identifier, name: :id
 
-  # TODO: Add remaining attributes when data modeling is defined
-  fields :name, :description, :destination_id, :latitude, :longitude, :address, :city, :country, :postal_code, :amenities_keywords, :booking_conditions
+  fields :destination_id, :name, :description, :amenities, :images, :booking_conditions
+
+  field :location do |hotel, _options|
+    {
+      lat: hotel.latitude,
+      lng: hotel.longitude,
+      address: hotel.address,
+      city: hotel.city,
+      country: hotel.country
+    }
+  end
+
 end
