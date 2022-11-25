@@ -9,6 +9,7 @@ class CreateHotelRawData < ActiveRecord::Migration[6.1]
       t.decimal :longitude, { precision: 10, scale: 6 }
       t.string :address
       t.string :postal_code
+      t.string :city
       t.string :country
       t.string :description
       t.jsonb :images

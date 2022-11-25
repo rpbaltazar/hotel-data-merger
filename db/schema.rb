@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_11_25_053102) do
     t.decimal "longitude", precision: 10, scale: 6
     t.string "address"
     t.string "postal_code"
+    t.string "city"
     t.string "country"
     t.string "description"
     t.jsonb "images"
