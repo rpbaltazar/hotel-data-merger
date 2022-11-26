@@ -20,7 +20,7 @@ module ServiceProviders
       private
 
       def standardize_images(images_object)
-        ['rooms', 'site', 'amenities'].each do |key|
+        Image.room_types.each_value.each do |key|
           images_per_room_type = images_object[key]
           next if images_per_room_type.nil?
 
