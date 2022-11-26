@@ -23,6 +23,7 @@ gem 'blueprinter'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'damerau-levenshtein'
 gem 'faraday'
 gem 'iso_country_codes', require: false
 
