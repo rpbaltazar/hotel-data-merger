@@ -39,13 +39,15 @@ describe ServiceProviders::Acme::HotelDataMapper do
         postal_code: '098269',
         country: 'Singapore',
         description: 'This 5 star hotel is located on the coastline of Singapore.',
-        amenities: [
-          'Pool',
-          'BusinessCenter',
-          'WiFi',
-          'DryCleaning',
-          'Breakfast'
-        ]
+        amenities: {
+          'general' => [
+            'Pool',
+            'BusinessCenter',
+            'WiFi',
+            'DryCleaning',
+            'Breakfast'
+          ]
+        }
       )
     end
   end
