@@ -52,12 +52,20 @@ The data merging depends on two earlier steps:
 The clean values removes all extra empty spaces for strings
 The standardize values step transforms the raw data sent by the different service providers in a way that we can safely merge the data later
 
+Regarding images, the raw data is all stored in the same data structure for the different service providers. This means that each service provider is responsible for mapping the external structure into our server's expected structure.
+When generating the latest version for our hotel's data, we delete all images associated with that hotel and re-create the associations based on the latest raw data available. When creating images associated with a hotel, we only create records for
+those images that do not yet exist for that room type.
+
 For images, for example, this means we will transform the keys from the raw data service response into what our API is supposed to render later.
 For countries, I rely on iso_country_code gem to look for the country name and assure that the raw data will store only country names and not country codes
 
 ## Improvements to current solution
 
-1. Images fetching - Right now there's some data transformation going on in order to rebuild the image data structure as we plan to serve it. A possible solution will be create an images table that will have a image type as attribute and it'll contain the room type as value. This images table would have a foreign key pointing to the hotel id and from here we could easily maintain/ignore duplicates and build the final data structure through relational database associations
+1. Images fetching
+  - Currently we delete and recreate all images associated with the hotel every sync. We could look into reducing the number of DB writes to determine a diff of new images + images to be deleted.
+  - The "merging" logic is purely based on the URL and room type, so the first image url for that room type to be found is the one to stay. If we have the same image url for the same room type from a different service provider, that will be ignored for our dataset
+  - If the url is identified as two different room types by different service providers, we show the same image url as two different images one for each of the reported room types.
+
 
 2. Amenities - Similarly to the image fetching, it would be beneficial to move this to a separate table with room type as an attribute. This would make it easier for us to assign a room type to the amenity.
 
