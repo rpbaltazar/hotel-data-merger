@@ -46,7 +46,7 @@ class HotelBuilder
   def prepare_images(raw_images)
     hotel_images = []
     raw_images.each do |raw_image_set|
-      ['rooms', 'amenities', 'site'].each do |room_type|
+      Image.room_types.each_value do |room_type|
         images_to_append = raw_image_set[room_type] || []
         images_to_append.each do |image|
           next if image_already_in_list(hotel_images, image['link'], room_type)
