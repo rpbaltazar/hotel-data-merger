@@ -15,13 +15,17 @@ class HotelBuilder
   def create_or_update_hotel_record
     hotel_attributes = build_hotel_attributes_from_raw_data(@raw_data)
     hotel_images = prepare_images(@raw_data.map(&:images).compact)
-    # hotel_amenities = prepare_amenities(raw_data)
+    hotel_amenities = prepare_amenities(@raw_data.map(&:amenities).compact)
     ActiveRecord::Base.transaction do
       @hotel.update!(hotel_attributes)
+
       @hotel.images.destroy_all
       @hotel.images = hotel_images
+
+      @hotel.amenities.destroy_all
+      @hotel.amenities = hotel_amenities
+
       @hotel.save!
-      # @hotel.amenities = hotel_amenities
     end
   end
 
@@ -37,7 +41,6 @@ class HotelBuilder
       # NOTE: country should be stored standardized in raw data already, so choosing the first is safe
       country: raw_data.map(&:country).compact.first,
       description: MergeUtils.longest_string(raw_data.map(&:description).compact),
-      amenities: fetch_amenities(raw_data.map(&:amenities).compact),
       booking_conditions: fetch_booking_conditions(raw_data.map(&:booking_conditions).compact),
       last_generated_at: Time.now
     }
@@ -62,9 +65,36 @@ class HotelBuilder
     hotel_images.find { |hotel_image| hotel_image.link == new_image_url && hotel_image.room_type == new_image_room_type }
   end
 
-  # Merging logic for amenities: TODO
-  def fetch_amenities(raw_amenities)
-    raw_amenities.first
+  def prepare_amenities(raw_amenities)
+    hotel_amenities_hash = {}
+
+    raw_amenities.each do |raw_amenity_hash|
+      room_types = raw_amenity_hash.keys
+      room_types.each do |room_type|
+        hotel_amenities_hash[room_type] ||= []
+        amenities_list = raw_amenity_hash[room_type] || []
+        hotel_amenities_hash[room_type] += amenities_list
+      end
+    end
+
+    hotel_amenities = []
+    # NOTE: The order is important because we want to start creating amenities from the more specific to the more general
+    %w[room general].each do |room_type|
+      hotel_amenities_hash[room_type].each do |amenity|
+        next if amenity_already_in_list(hotel_amenities, amenity)
+
+        hotel_amenities << Amenity.new(hotel: @hotel, room_type: room_type, description: amenity)
+      end
+    end
+
+    hotel_amenities
+  end
+
+  def amenity_already_in_list(hotel_amenities, amenity)
+    hotel_amenities.find do |hotel_amenity|
+      # TODO: logic here can be improved, eg. levenshtein distance
+      hotel_amenity.description.downcase == amenity.downcase
+    end
   end
 
   # Merging logic for booking_conditions: all merged and uniqued
