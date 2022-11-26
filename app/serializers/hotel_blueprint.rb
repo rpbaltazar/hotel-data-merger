@@ -23,4 +23,14 @@ class HotelBlueprint < Blueprinter::Base
       hotel_images
     end
   end
+
+
+  field :amenities do |hotel, _options|
+    hotel.amenities.group_by(&:room_type).each_with_object({}) do |room_based_amenities, hotel_amenities|
+      room_type, hotel_amenities_array = room_based_amenities
+      rendered_amenities = hotel_amenities_array.map(&:description)
+      hotel_amenities[room_type] = rendered_amenities
+      hotel_amenities
+    end
+  end
 end
