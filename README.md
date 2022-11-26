@@ -57,6 +57,10 @@ When generating the latest version for our hotel's data, we delete all images as
 those images that do not yet exist for that room type.
 
 For images, for example, this means we will transform the keys from the raw data service response into what our API is supposed to render later.
+
+Regarding amenities, the assumption is that if the word is not found in the specific room type set, then it'll be considered as generic.
+We are using [Damerau-Levenshtein](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance) distance to determine if the words are close enough. If they are considered close enough then duplicate entries will not be added to the final hotel dataset.
+
 For countries, I rely on iso_country_code gem to look for the country name and assure that the raw data will store only country names and not country codes
 
 ## Improvements to current solution
@@ -66,9 +70,6 @@ For countries, I rely on iso_country_code gem to look for the country name and a
   - The "merging" logic is purely based on the URL and room type, so the first image url for that room type to be found is the one to stay. If we have the same image url for the same room type from a different service provider, that will be ignored for our dataset
   - If the url is identified as two different room types by different service providers, we show the same image url as two different images one for each of the reported room types.
 
+2. Data deletion - Currently there is no way for us to remove data from our server. It would be good to implement a sync logic that is able to remove stale data. With the currently provided APIs I can't think of a very clean way to achieve this unless we do a diff on all the ids.
 
-2. Amenities - Similarly to the image fetching, it would be beneficial to move this to a separate table with room type as an attribute. This would make it easier for us to assign a room type to the amenity.
-
-3. Data deletion - Currently there is no way for us to remove data from our server. It would be good to implement a sync logic that is able to remove stale data. With the currently provided APIs I can't think of a very clean way to achieve this unless we do a diff on all the ids.
-
-4. Data sync - In a real world scenario, we would need to handle pagination for both parts
+3. Data sync - In a real world scenario, we would need to handle pagination for both parts
