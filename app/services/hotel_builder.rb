@@ -3,6 +3,8 @@
 require 'merge_utils'
 
 class HotelBuilder
+  CLOSE_ENOUGH_WORDS_DISTANCE = 3
+
   def initialize(identifier:, raw_data: [])
     @identifier = identifier
     @raw_data = raw_data
@@ -92,8 +94,7 @@ class HotelBuilder
 
   def amenity_already_in_list(hotel_amenities, amenity)
     hotel_amenities.find do |hotel_amenity|
-      # TODO: logic here can be improved, eg. levenshtein distance
-      hotel_amenity.description.downcase == amenity.downcase
+      DamerauLevenshtein.distance(hotel_amenity.description.downcase, amenity.downcase) <= CLOSE_ENOUGH_WORDS_DISTANCE
     end
   end
 
