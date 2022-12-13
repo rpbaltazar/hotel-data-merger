@@ -73,3 +73,7 @@ For countries, I rely on iso_country_code gem to look for the country name and a
 2. Data deletion - Currently there is no way for us to remove data from our server. It would be good to implement a sync logic that is able to remove stale data. With the currently provided APIs I can't think of a very clean way to achieve this unless we do a diff on all the ids.
 
 3. Data sync - In a real world scenario, we would need to handle pagination for both parts
+
+4. Assuming that the API behaviour will not change and that we have to always fetch the whole dataset, we should include a `last_seen_at` in the raw data records.
+  - This would allow us to identify what raw records are stale.
+  - Based on the last seen at, we could delete the hotel stale data. E.g. if there is no non-stale raw data, then our hotel is no longer relevant.
